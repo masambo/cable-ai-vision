@@ -10,6 +10,12 @@ const getApiKey = (): string | null => {
   return localStorage.getItem('cablesync-api-key');
 };
 
+// Function to validate API key format
+const isValidApiKey = (key: string): boolean => {
+  // Basic validation for Google API key format (starts with "AIza")
+  return key.startsWith('AIza') && key.length >= 30;
+};
+
 // Mock function to simulate image analysis with delay and API key validation
 export const analyzeImage = async (
   imageFile: File,
@@ -24,6 +30,11 @@ export const analyzeImage = async (
         const apiKey = getApiKey();
         if (!apiKey) {
           throw new Error('API key not found. Please add your API key in settings.');
+        }
+        
+        // Validate API key format
+        if (!isValidApiKey(apiKey)) {
+          throw new Error('Invalid API key format. Please check your API key.');
         }
         
         // Check if file is valid
@@ -73,6 +84,11 @@ export const analyzeColorCode = async (colorText: string): Promise<AiResponse> =
         const apiKey = getApiKey();
         if (!apiKey) {
           throw new Error('API key not found. Please add your API key in settings.');
+        }
+        
+        // Validate API key format
+        if (!isValidApiKey(apiKey)) {
+          throw new Error('Invalid API key format. Please check your API key.');
         }
         
         // Check if input is valid
