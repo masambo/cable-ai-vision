@@ -1,26 +1,37 @@
 
-// Mock service that simulates AI API calls
+// AI service with API key support
 
 export interface AiResponse {
   label: string;
   confidence: number;
 }
 
-// Mock function to simulate image analysis with delay
+const getApiKey = (): string | null => {
+  return localStorage.getItem('cablesync-api-key');
+};
+
+// Mock function to simulate image analysis with delay and API key validation
 export const analyzeImage = async (
   imageFile: File,
   type: 'cable' | 'connector'
 ): Promise<AiResponse> => {
-  // In a real app, we would send the image to the Hugging Face API
-  // For demo purposes, we'll simulate a response
+  // In a real app, we would send the image to an API with the API key
   
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
+        // Check for API key
+        const apiKey = getApiKey();
+        if (!apiKey) {
+          throw new Error('API key not found. Please add your API key in settings.');
+        }
+        
         // Check if file is valid
         if (!imageFile || !imageFile.type.startsWith('image/')) {
           throw new Error('Please upload a valid image file');
         }
+        
+        console.log(`Using API key: ${apiKey.substring(0, 5)}... for analysis`);
         
         // Simulate response based on type
         if (type === 'cable') {
@@ -53,15 +64,23 @@ export const analyzeImage = async (
   });
 };
 
-// Mock function to analyze color code text
+// Mock function to analyze color code text with API key validation
 export const analyzeColorCode = async (colorText: string): Promise<AiResponse> => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
+        // Check for API key
+        const apiKey = getApiKey();
+        if (!apiKey) {
+          throw new Error('API key not found. Please add your API key in settings.');
+        }
+        
         // Check if input is valid
         if (!colorText.trim()) {
           throw new Error('Please enter a color sequence');
         }
+        
+        console.log(`Using API key: ${apiKey.substring(0, 5)}... for color analysis`);
         
         const lowerText = colorText.toLowerCase();
         

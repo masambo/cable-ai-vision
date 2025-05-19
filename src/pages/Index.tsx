@@ -6,6 +6,7 @@ import HeroSection from '@/components/HeroSection';
 import CableTypeIdentifier from '@/components/CableTypeIdentifier';
 import ConnectorTypeIdentifier from '@/components/ConnectorTypeIdentifier';
 import WiringStandardIdentifier from '@/components/WiringStandardIdentifier';
+import ApiKeyManager from '@/components/ApiKeyManager';
 import { Toaster as Sonner } from '@/components/ui/sonner';
 
 const Index: React.FC = () => {
@@ -15,6 +16,10 @@ const Index: React.FC = () => {
       <HeroSection />
       
       <main className="flex-grow px-4 py-8 max-w-7xl mx-auto w-full">
+        <div className="mb-8">
+          <ApiKeyManager />
+        </div>
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <CableTypeIdentifier />
           <ConnectorTypeIdentifier />
